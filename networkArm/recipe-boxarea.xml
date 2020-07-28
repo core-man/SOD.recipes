@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!-- ***************************************************************
+* If you'd like to use different subsetters in networkArm,
+* please refer to the following websites:
+*  1. http://www.seis.sc.edu/sod/ingredients/networkArm.html
+*  2. https://github.com/seisman/SODrecipes
+*****************************************************************-->
+<sod>
+    <!--   Network Arm   -->
+    <networkArm>
+        <!-- networkSource subsetters -->
+        <!-- use fdsnStation, whose default is IRIS-DMC FDSN station web service -->
+        <fdsnStation>
+            <!--networkCode>MM</networkCode-->  <!-- uncomment to be use it here -->
+            <channelCode>BH?</channelCode>
+            <stationBoxArea> <!-- Accepts stations within a latitude-longitude box -->
+                <latitudeRange>
+                    <min>16</min>
+                    <max>22</max>
+                </latitudeRange>
+                <longitudeRange>
+                    <min>90</min>
+                    <max>96</max>
+                </longitudeRange>
+            </stationBoxArea>
+        </fdsnStation>
+
+        <!-- network subsetters -->
+        <networkOR>
+            <networkCode>MM</networkCode>
+            <networkCode>TM</networkCode>
+        </networkOR>
+
+        <!-- station subsetters -->
+
+        <!-- channel subsetters -->
+        <channelOR>
+            <channelCode>BHE</channelCode>
+            <channelCode>BHN</channelCode>
+            <channelCode>BHZ</channelCode>
+        </channelOR>
+
+        <sacPoleZeroWriter/>  <!-- print channel poles and zeros to file -->
+        <responseWriter/>     <!-- print channel responeses to file -->
+        <!--printlineChannelProcess/-->
+        <printlineChannelProcess>  <!-- output station locations -->
+            <template>${net}.${channel.station.code}.${channel.site.code}.${channel.code} ${channel.station.getLatitude("#.00000")} ${channel.station.getLongitude("#.00000")} ${channel.station.elevation} ${channel.start} ${channel.end}</template>
+            <filename>station.dat</filename>
+        </printlineChannelProcess>
+    </networkArm>
+</sod>

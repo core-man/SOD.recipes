@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!-- ***************************************************************
+* If you'd like to use different subsetters in eventArm,
+* please refer to the following websites:
+*  1. http://www.seis.sc.edu/sod/ingredients/eventArm.html
+*  2. https://github.com/seisman/SODrecipes
+*****************************************************************-->
+<sod>
+    <eventArm>
+        <!-- eventSource subsetters -->
+        <!-- use fdsnStation, but now use NCEDC FDSN web service -->
+        <fdsnEvent>
+            <host>service.ncedc.org</host>
+
+            <originTimeRange>   <!-- origin time range -->
+                <startTime>2010-01-01T00:00:00.000Z</startTime>
+                <endTime>2011-01-01T00:00:00.000Z</endTime>
+            </originTimeRange>
+            <magnitudeRange>    <!-- event maginitude range -->
+                <min>2.5</min>
+                <max>3</max>
+            </magnitudeRange>
+            <originDepthRange>  <!-- event depth range -->
+                <unit>KILOMETER</unit>
+                <min>0</min>
+                <max>10</max>
+            </originDepthRange>
+            <boxArea> <!-- Accepts events within a latitude-longitude box -->
+                <latitudeRange>
+                    <min>33.5</min>
+                    <max>34.2</max>
+                </latitudeRange>
+                <longitudeRange>
+                    <min>-118</min>
+                    <max>-117.3</max>
+                </longitudeRange>
+            </boxArea>
+        </fdsnEvent>
+
+        <!-- origin subsetters -->
+        <printlineEventProcess/>
+        <CSVEventPrinter> <!-- save catalog to a csv file -->
+            <filename>events.csv</filename>
+        </CSVEventPrinter>
+    </eventArm>
+</sod>

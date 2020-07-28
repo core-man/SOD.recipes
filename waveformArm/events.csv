@@ -1,0 +1,5 @@
+time, latitude, longitude, depth, depthUnits, magnitude, magnitudeType
+20190926T10:59:25.648Z,  40.9035,  28.1502,     8, KILOMETER, 5.7, mww
+20190926T00:39:59.361Z,  -3.6266, 128.4155,    10, KILOMETER, 5.5, mww
+20190925T23:46:43.543Z,  -3.4528, 128.3699, 12.26, KILOMETER, 6.5, mww
+20190924T21:19:47.423Z, -33.8212,  56.2997,    10, KILOMETER,   6, mww

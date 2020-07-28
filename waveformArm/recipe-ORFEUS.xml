@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<!-- ****************************************************************
+* SOD recipe used to download seismic waveforms from ORFEUS FDSN
+* web service (http://www.orfeus-eu.org/fdsnws/)
+*
+* History
+*  04/29/2020   Jiayuan Yao   Initial coding
+*
+*  You can refer to SOD email list to know some discussion:
+*   https://groups.google.com/a/seis.sc.edu/forum/#!topic/sod/j-rxZxYj1jQ
+*
+*  If you'd like to use different subsetters in eventArm, networkArm, waveformArm,
+*  please refer to the following websites:
+*  1. http://www.seis.sc.edu/sod/ingredients/index.html
+*  2. https://github.com/seisman/SODrecipes
+*****************************************************************-->
+<sod>
+    <!--   Event Arm   -->
+    <eventArm>
+        <!-- eventSource subsetters -->
+        <!-- I use CSVEventSource here, with event parameters in the recipe -->
+        <CSVEventSource>
+            <events>
+                time, magnitude, latitude, longitude, depth, depthUnits, magnitude, magnitudeType
+                2011-03-11T06:05:00.000Z, 7.1, 59.636, -153.405,  129.0, KILOMETER, 5.7, mww
+                2017-01-01T00:00:00.000Z, 7.1, 59.636, -153.405,  129.0, KILOMETER, 5.7, mww
+            </events>
+        </CSVEventSource>
+
+        <!-- origin subsetters -->
+    	<printlineEventProcess/>
+    </eventArm>
+
+
+    <!--   Network Arm   -->
+    <networkArm>
+        <!-- networkSource subsetters -->
+        <!-- I use fdsnStation, but now use ORFEUS FDSN web service -->
+        <fdsnStation>
+            <host>www.orfeus-eu.org</host>
+            <includeAvailability>false</includeAvailability>
+        </fdsnStation>
+
+        <!-- network subsetters -->
+        <networkOR>
+            <networkCode>GE</networkCode>
+            <networkCode>NL</networkCode>
+        </networkOR>
+
+        <!-- station subsetters -->
+        <stationOR>
+            <stationCode>BKB</stationCode>
+            <stationCode>HGN</stationCode>
+        </stationOR>
+
+        <!-- channel subsetters -->
+        <channelOR>
+            <channelCode>HH?</channelCode>
+            <channelCode>BH?</channelCode>
+        </channelOR>
+        <sacPoleZeroWriter/>  <!-- print channel poles and zeros to file -->
+        <responseWriter/>     <!-- print channel responeses to file -->
+    	<printlineChannelProcess/>
+    </networkArm>
+
+
+    <!--   Waveform Arm   -->
+    <waveformArm>
+        <!-- eventStation subsetters -->
+
+        <!-- eventChannel subsetters -->
+        <bestChannelAtStation/>  <!-- pick the best channel at a station -->
+
+        <!-- requestGenerator subsetters -->
+    	<originOffsetRequest>
+            <beginOffset>
+            	<unit>MINUTE</unit>
+            	<value>0</value>
+            </beginOffset>
+            <endOffset>
+            	<unit>MINUTE</unit>
+                <value>15</value>
+            </endOffset>
+        </originOffsetRequest>
+
+        <!-- request subsetters -->
+
+        <!-- seismogramSource subsetters -->
+        <!-- I use fdsnDataSelect, but now use ORFEUS FDSN web service -->
+        <fdsnDataSelect>
+            <host>www.orfeus-eu.org</host>
+        </fdsnDataSelect>
+
+        <!-- availableData subsetters -->
+        <someCoverage/>
+
+
+        <!-- ****************************************************
+              The following are all seismogramProcess subsetters
+             **************************************************** -->
+        <!-- checks after asking for the seismograms that they really exist. -->
+        <someDataCoverage/>
+
+        <!-- merge, deal with overlap and gap -->
+        <merge/>
+        <collapseOverlaps/>
+        <gapFill>
+            <zeroFill/>
+        </gapFill>
+        <noDataGaps/>
+
+        <!-- basic data processing -->
+        <rMean/>
+        <rTrend/>
+        <taper/>
+
+        <!-- write raw data -->
+        <sacWriter>
+            <workingDir>seismograms-raw</workingDir>
+            <location>${event.getTime("yyyyMMddHHmmssSSS")}/${network.code}.${station.code}.${site.code}.${channel.code}.SAC</location>
+            <!-- Set event depth in km instead of meters -->
+            <sacHeaderScript type="jython">
+                from edu.sc.seis.seisFile.sac import SacConstants
+                h = sac.getHeader()
+                h.evdp = h.evdp/1000
+            </sacHeaderScript>
+        </sacWriter>
+    	<printlineSeismogramProcess/>
+    	<legacyExecute>
+            <command>echo Sod saved this file</command>
+    	</legacyExecute>
+
+        <!-- remove response, it should be the same as runing the SAC command:
+             transfer from polezero subtype xyz to none freq 0.005 0.01 20 40 -->
+        <transferResponse>
+            <lowCut>0.005</lowCut>
+            <lowPass>0.01</lowPass>
+            <highPass>20</highPass>
+            <highCut>40</highCut>
+        </transferResponse>
+
+        <!-- write data with response removed -->
+        <sacWriter>
+            <workingDir>seismograms</workingDir>
+            <location>${event.getTime("yyyyMMddHHmmssSSS")}/${network.code}.${station.code}.${site.code}.${channel.code}.SAC</location>
+            <!-- Set event depth in km instead of meters -->
+            <sacHeaderScript type="jython">
+                from edu.sc.seis.seisFile.sac import SacConstants
+                h = sac.getHeader()
+                h.evdp = h.evdp/1000
+            </sacHeaderScript>
+        </sacWriter>
+    	<printlineSeismogramProcess/>
+    	<legacyExecute>
+            <command>echo Sod saved this file</command>
+    	</legacyExecute>
+  	</waveformArm>
+</sod>
