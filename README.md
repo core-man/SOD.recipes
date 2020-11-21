@@ -70,7 +70,7 @@ Those recipes contain all the three Arms, which are used to download seismic wav
 
 ## References
 
-- If you'd like to know more about SOD, please refer to [SOD documentation](http://www.seis.sc.edu/sod/documentation/index.html) with [some tutorials of the major SOD aspects](http://www.seis.sc.edu/sod/documentation/tutorials/index.html). [A Chinese introduction](https://blog.seisman.info/sod-notes/) is also useful.
+- If you'd like to know more about SOD, please refer to [SOD documentation](http://www.seis.sc.edu/sod/documentation/index.html) with [some tutorials of the major SOD aspects](http://www.seis.sc.edu/sod/documentation/tutorials/index.html). [A Chinese introduction](https://blog.seisman.info/sod-notes/) is also useful. You can also sign up [SOD email list](http://www.seis.sc.edu/sod/) for annoucements, discussions and questions about using SOD.
 - If you'd like to use different subsetters in eventArm, networkArm, waveformArm (I have indicated the locations of some unused subsetters in those recipes), please refer to the following websites:
     - [SOD ingredients](http://www.seis.sc.edu/sod/ingredients/index.html)
     - [Seisman's SOD recipes](https://github.com/seisman/SODrecipes)
