@@ -69,7 +69,7 @@ Those recipes contain all the three Arms, which are used to download seismic wav
 
 - The default of [fdsnStation](http://www.seis.sc.edu/sod/ingredients/fdsnStation.html) is to query [IRIS-DMC FDSN Station web service](http://service.iris.edu/fdsnws/station/1/). By default this does not get restricted channels unless there is a corresponding [fdsnDataSelect](http://www.seis.sc.edu/sod/ingredients/fdsnDataSelect.html) that has a `user` and `password` specified.
 
-- The default of [fdsnDataSelect](http://www.seis.sc.edu/sod/ingredients/fdsnDataSelect.html) is to query [IRIS-DMC FDSN Dataselect web service](http://service.iris.edu/fdsnws/dataselect/1/).
+- The default of [fdsnDataSelect](http://www.seis.sc.edu/sod/ingredients/fdsnDataSelect.html) is to query [IRIS-DMC FDSN Dataselect web service](http://service.iris.edu/fdsnws/dataselect/1/). To query restricted data, set `user` and `password` in [fdsnDataSelect](http://www.seis.sc.edu/sod/ingredients/fdsnDataSelect.html).
 
 - To query at non-default Data Center, please refer to [FDSN web service](https://www.fdsn.org/webservices/) to see the supporting Data Centers and their hosts. Here are the host names for some Data Centers.
 
@@ -81,8 +81,6 @@ Those recipes contain all the three Arms, which are used to download seismic wav
     - [ORFEUS](http://www.orfeus-eu.org/fdsnws/) : `www.orfeus-eu.org`
 
 - If we'd like to use [IRIS-DMC's PH5 web services](http://service.iris.edu/ph5ws/), we have to set the path of fdsnws (i.e., `fdsnwsPath`) to be `ph5ws` in the [fdsnEvent](http://www.seis.sc.edu/sod/ingredients/fdsnEvent.html), [fdsnStation](http://www.seis.sc.edu/sod/ingredients/fdsnStation.html), and [fdsnDataSelect](http://www.seis.sc.edu/sod/ingredients/fdsnDataSelect.html) subsetters, although the name is `fdsnPath` in the `fdsnEvent` and `fdsnDataSelect` in the online SOD manual. Please check the discussion about this issue in the [SOD email list](https://groups.google.com/a/seis.sc.edu/forum/#!topic/sod/j-rxZxYj1jQ). However, I am not sure if the name is actually `fdsnPath` or `fdsnwsPath` in the `fdsnEvent` subsetter. Maybe you can try both, and report it in the [SOD email list](http://www.seis.sc.edu/sod/) if there exists a bug.
-
-- To query restricted data, set `user` and `password` in [fdsnDataSelect](http://www.seis.sc.edu/sod/ingredients/fdsnDataSelect.html).
 
 - If you use SOD to do the `transferResponse` process, it is necessary to further multiply the waveform by `1.0e9` to convert from meters to nanometers. Please refer to SAC's `transfer` manual to check the reason: open SAC; then type `help transfer`; see `POLEZERO OPTION`. You may also refer to some Chinese tutorials about this issue: [Chinese SAC manual](https://seisman.github.io/SAC_Docs_zh/commands/transfer/) and [Difference when doing transfer using RESP and PZ](https://blog.seisman.info/resp-sacpz-difference/). In addition, choose right arguments for `transferResponse`. For example, f4 should be smaller than Nyquist frequency (if sampling rate is 0.01 s, then Nyquist frequency is 50 Hz).
 
