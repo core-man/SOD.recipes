@@ -82,13 +82,13 @@ Those recipes contain all the three Arms, which are used to download seismic wav
     - `merge`: If the seismogram server is returning multiple continuous seismograms for a request, this will join them into a single seismogram. Continuous means that the begin time of the second seismogram is approximately one sample period after the end time of the first seismogram. This processor **DOES NOT** merge overlapping seismograms or seismograms where there is a gap larger than one sample period. For those cases see `collapseOverlaps` and `gapFill` respectively.
     - `collapseOverlaps`: it checks for overlapping seismograms. If one seismogram is completely contained in another seismogram, it is removed. If two seismograms overlap partially, then the longer of the two is kept in its entirety and the short is cut to no longer overlap This processor should ideally not be needed, as the server should refrain from returning overlapping data.
     - `gapFill`: If the seismogram server is returning multiple continuous seismograms for a request, this will join them into a single seismogram filling any gaps. This **IMPLICITYLY DOES** a `collapseOverlaps` and a `merge` before filling gaps.
+- [noDataGaps](http://www.seis.sc.edu/sod/ingredients/noDataGaps.html) checks the data returned from Data Center for gaps larger than the sample period of the instrument. If from the begin time of the earliest piece to the end time of the latest piece there are no gaps in time larger than the sample period, this process passes the data onto the next item in the line.
 - If you use SOD to do the [transferResponse](http://www.seis.sc.edu/sod/ingredients/transferResponse.html) process, it is necessary to further multiply the waveform by `1.0e9` to convert from meters to nanometers. Please refer to SAC's `transfer` reference to check the reason (see `POLEZERO OPTION`). You may also refer to some Chinese tutorials about this issue: [Chinese SAC manual](https://seisman.github.io/SAC_Docs_zh/commands/transfer/) and [Difference when doing transfer using RESP and PZ](https://blog.seisman.info/resp-sacpz-difference/). In addition, choose right arguments for `transferResponse`. For example, f4 should be smaller than Nyquist frequency (if sampling rate is 0.01 s, then Nyquist frequency is 50 Hz).
 ```bash
 $ SAC
 # see `POLEZERO OPTION`
 $ help transfer
 ```
-- [noDataGaps](http://www.seis.sc.edu/sod/ingredients/noDataGaps.html) checks the data returned from Data Center for gaps larger than the sample period of the instrument. If from the begin time of the earliest piece to the end time of the latest piece there are no gaps in time larger than the sample period, this process passes the data onto the next item in the line.
 
 
 ## References
