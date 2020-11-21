@@ -77,6 +77,7 @@ Those recipes contain all the three Arms, which are used to download seismic wav
 - If you use SOD to do the [transferResponse](http://www.seis.sc.edu/sod/ingredients/transferResponse.html) process, it is necessary to further multiply the waveform by `1.0e9` to convert from meters to nanometers. Please refer to SAC's `transfer` reference to check the reason (see `POLEZERO OPTION`). You may also refer to some Chinese tutorials about this issue: [Chinese SAC manual](https://seisman.github.io/SAC_Docs_zh/commands/transfer/) and [Difference when doing transfer using RESP and PZ](https://blog.seisman.info/resp-sacpz-difference/). In addition, choose right arguments for `transferResponse`. For example, f4 should be smaller than Nyquist frequency (if sampling rate is 0.01 s, then Nyquist frequency is 50 Hz).
 ```bash
 $ SAC
+# see `POLEZERO OPTION`
 $ help transfer
 ```
 
