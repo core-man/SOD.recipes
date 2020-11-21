@@ -57,13 +57,7 @@ Those recipes contain all the three Arms, which are used to download seismic wav
 
 
 
-## Some notes
-
-- If you'd like to know more about SOD, please refer to [SOD documentation](http://www.seis.sc.edu/sod/documentation/index.html) with [some tutorials of the major SOD aspects](http://www.seis.sc.edu/sod/documentation/tutorials/index.html). [A Chinese introduction](https://blog.seisman.info/sod-notes/) is also useful.
-
-- If you'd like to use different subsetters in eventArm, networkArm, waveformArm (I have indicated the locations of some unused subsetters in those recipes), please refer to the following websites:
-    - [SOD ingredients](http://www.seis.sc.edu/sod/ingredients/index.html)
-    - [Seisman's SOD recipes](https://github.com/seisman/SODrecipes)
+## Some Notes
 
 - The default of [fdsnEvent](http://www.seis.sc.edu/sod/ingredients/fdsnEvent.html) is to query [USGS FDSN Event web service](https://earthquake.usgs.gov/fdsnws/event/1/), i.e., [ANSS Comprehensive Earthquake Catalog (ComCat)](https://earthquake.usgs.gov/earthquakes/search/). You can also query other Data Center's Event web service (e.g., [IRIS-DMC Event web service](http://service.iris.edu/fdsnws/event/1)).
 
@@ -85,4 +79,13 @@ Those recipes contain all the three Arms, which are used to download seismic wav
 - If you use SOD to do the `transferResponse` process, it is necessary to further multiply the waveform by `1.0e9` to convert from meters to nanometers. Please refer to SAC's `transfer` manual to check the reason: open SAC; then type `help transfer`; see `POLEZERO OPTION`. You may also refer to some Chinese tutorials about this issue: [Chinese SAC manual](https://seisman.github.io/SAC_Docs_zh/commands/transfer/) and [Difference when doing transfer using RESP and PZ](https://blog.seisman.info/resp-sacpz-difference/). In addition, choose right arguments for `transferResponse`. For example, f4 should be smaller than Nyquist frequency (if sampling rate is 0.01 s, then Nyquist frequency is 50 Hz).
 
 - I use the subsetter [bestChannelAtStation](http://www.seis.sc.edu/sod/ingredients/bestChannelAtStation.html) in the waveformArm, but it is unfortunately fragile because stations often have unusual characteristics that keep it from working. We may miss some channels that actually have data. We may not use it and download all the channels, while we can also use other subsetters within the [eventChannel](http://www.seis.sc.edu/sod/ingredients/eventChannel.html). In the later case, you have to know the channels you want. Please see the discussion about this issue in the [SOD email list](https://groups.google.com/a/seis.sc.edu/forum/#!topic/sod/pWgzAkaggw0).
+
+
+## References
+
+- If you'd like to know more about SOD, please refer to [SOD documentation](http://www.seis.sc.edu/sod/documentation/index.html) with [some tutorials of the major SOD aspects](http://www.seis.sc.edu/sod/documentation/tutorials/index.html). [A Chinese introduction](https://blog.seisman.info/sod-notes/) is also useful.
+
+- If you'd like to use different subsetters in eventArm, networkArm, waveformArm (I have indicated the locations of some unused subsetters in those recipes), please refer to the following websites:
+    - [SOD ingredients](http://www.seis.sc.edu/sod/ingredients/index.html)
+    - [Seisman's SOD recipes](https://github.com/seisman/SODrecipes)
 
