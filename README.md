@@ -14,6 +14,7 @@ You may check all the [FDSNWS supporting Data Centers](https://www.fdsn.org/webs
 - [networkArm](#networkarm)
 - [waveformArm](#waveformarm)
 - [subsetter notes](#subsetter-notes)
+- [tests](#tests)
 - [references](#references)
 
 
