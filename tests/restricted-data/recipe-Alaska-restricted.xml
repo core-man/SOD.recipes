@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<sod>
+    <eventArm>
+        <CSVEventSource>
+            <events>
+            time, magnitude, latitude, longitude, depth
+            2016-01-24T10:30:30.000Z, 7.1, 59.636, -153.405,  129.0
+            </events>
+        </CSVEventSource>
+    	<printlineEventProcess/>
+	</eventArm>
+  	<networkArm>
+    	<fdsnStation/>
+		<networkOR>
+			<networkCode>ZE</networkCode>
+		</networkOR>
+		<channelOR>
+			<channelCode>HH?</channelCode>
+			<channelCode>BH?</channelCode>
+		</channelOR>
+    	<printlineChannelProcess/>
+  	</networkArm>
+  	<waveformArm>
+		<bestChannelAtStation/>
+    	<originOffsetRequest>
+	    	<beginOffset>
+            	<unit>MINUTE</unit>
+            	<value>0</value>
+            </beginOffset>
+            <endOffset>
+            	<unit>MINUTE</unit>
+                <value>10</value>
+            </endOffset>
+        </originOffsetRequest>
+        <fdsnDataSelect>
+            <!--user>******</user>
+            <password>******</password-->
+            <user>jiayuanyao@ntu.edu.sg</user>
+            <password>Agdnjgh3yh86</password>
+        </fdsnDataSelect>
+		<someCoverage/>
+		<merge/>
+		<collapseOverlaps/>
+		<gapFill>
+			<zeroFill/>
+		</gapFill>
+		<rMean/>
+		<rTrend/>
+		<taper/>
+        <sacWriter>
+            <workingDir>seismograms</workingDir>
+        </sacWriter>
+    	<printlineSeismogramProcess/>
+    	<legacyExecute>
+    		<command>echo Sod saved this file</command>
+    	</legacyExecute>
+  	</waveformArm>
+</sod>

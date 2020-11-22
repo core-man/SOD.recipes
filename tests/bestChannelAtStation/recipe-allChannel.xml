@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<sod>
+    <!--   Event Arm   -->
+    <eventArm>
+        <!-- eventSource subsetters -->
+        <!-- I use CSVEventSource, with events in a text file -->
+    	<CSVEventSource>
+            <filename>event.csv</filename>
+        </CSVEventSource>
+
+        <!-- origin subsetters -->
+    	<printlineEventProcess/>
+    </eventArm>
+
+
+    <!--   Network Arm   -->
+    <networkArm>
+        <!-- networkSource subsetters -->
+        <!-- I use fdsnStation, whose default is IRIS-DMC FDSN station web service -->
+        <fdsnStation/>
+
+        <!-- network subsetters -->
+        <networkOR>
+            <networkCode>YH</networkCode>
+        </networkOR>
+
+        <!-- station subsetters -->
+        <stationOR>
+            <stationCode>LOB10</stationCode>
+            <stationCode>LOBS1</stationCode>
+            <stationCode>LOBS2</stationCode>
+            <stationCode>LOBS3</stationCode>
+            <stationCode>LOBS4</stationCode>
+            <stationCode>LOBS5</stationCode>
+            <stationCode>LOBS6</stationCode>
+            <stationCode>LOBS7</stationCode>
+            <stationCode>LOBS8</stationCode>
+            <stationCode>LOBS9</stationCode>
+        </stationOR>
+
+        <!-- channel subsetters -->
+        <channelOR>
+            <channelCode>HH?</channelCode>
+            <channelCode>HL?</channelCode>
+            <channelCode>BH?</channelCode>
+            <channelCode>BL?</channelCode>
+        </channelOR>
+    	<printlineChannelProcess/>
+    </networkArm>
+
+
+    <!--   Waveform Arm   -->
+    <waveformArm>
+        <!-- eventStation subsetters -->
+
+        <!-- eventChannel subsetters -->
+        <!--bestChannelAtStation/-->  <!-- pick the best channel at a station -->
+
+        <!-- requestGenerator subsetters -->
+        <phaseRequest> <!-- time window 50 s before and 150 s after frist P -->
+            <model>ak135</model>
+            <beginPhase>ttp</beginPhase> <!-- frist P -->
+            <beginOffset>
+                <unit>SECOND</unit>
+                <value>-50</value>
+            </beginOffset>
+            <endPhase>ttp</endPhase>
+            <endOffset>
+                <unit>SECOND</unit>
+                <value>150</value>
+            </endOffset>
+        </phaseRequest>
+
+        <!-- request subsetters -->
+
+        <!-- seismogramSource subsetters -->
+        <!-- I use fdsnDataSelect, whose default is IRIS-DMC FDSN dataselect web service -->
+        <fdsnDataSelect/>
+
+        <!-- availableData subsetters -->
+        <someCoverage/>
+
+
+        <!-- ****************************************************
+              The following are all seismogramProcess subsetters
+             **************************************************** -->
+        <!-- checks after asking for the seismograms that they really exist. -->
+        <someDataCoverage/>
+
+        <!-- merge, deal with overlap and gap -->
+        <merge/>
+        <collapseOverlaps/>
+        <gapFill>
+            <zeroFill/>
+        </gapFill>
+        <noDataGaps/>
+
+        <!-- basic data processing -->
+        <rMean/>
+        <rTrend/>
+        <taper/>
+
+        <!-- write raw data -->
+        <sacWriter>
+            <workingDir>seismograms-allchannel</workingDir>
+            <location>${event.getTime("yyyyMMddHHmmssSSS")}/${network.code}.${station.code}.${site.code}.${channel.code}.SAC</location>
+            <!-- Set event depth in km instead of meters -->
+            <sacHeaderScript type="jython">
+                from edu.sc.seis.seisFile.sac import SacConstants
+                h = sac.getHeader()
+                h.evdp = h.evdp/1000
+            </sacHeaderScript>
+        </sacWriter>
+    	<printlineSeismogramProcess/>
+    	<legacyExecute>
+            <command>echo Sod saved this file</command>
+    	</legacyExecute>
+  	</waveformArm>
+</sod>

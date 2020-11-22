@@ -16,6 +16,7 @@ You may check all the [FDSNWS supporting Data Centers](https://www.fdsn.org/webs
 - [subsetter notes](#subsetter-notes)
 - [references](#references)
 
+
 ## eventArm
 
 Those recipes only contain the eventArm, which can be used to download the catalog called `events.csv`. You may revise, comment, or add some subsetters in the recipes according to your purposes.
@@ -50,7 +51,6 @@ Those recipes contain all the three Arms, which are used to download seismic wav
 - [recipe-ORFEUS.xml](waveformArm/recipe-ORFEUS.xml)  : Query seismic waveforms from [ORFEUS FDSNWS](http://www.orfeus-eu.org/fdsnws/)
 
 
-
 ## Subsetter Notes
 
 ### Data Servers
@@ -69,7 +69,7 @@ Those recipes contain all the three Arms, which are used to download seismic wav
 
 ### eventChannel Subsetters
 
-- I use the subsetter [bestChannelAtStation](http://www.seis.sc.edu/sod/ingredients/bestChannelAtStation.html) in [eventChannel](http://www.seis.sc.edu/sod/ingredients/eventChannel.html), but it is unfortunately fragile because stations often have unusual characteristics that keep it from working. We may miss some channels that actually have data. We may not use it and download all the channels, while we can also use other subsetters within the [eventChannel](http://www.seis.sc.edu/sod/ingredients/eventChannel.html). In the later case, you have to know the channels you want. Please see the discussion about this issue in the [SOD email list](https://groups.google.com/a/seis.sc.edu/forum/#!topic/sod/pWgzAkaggw0).
+- I use the subsetter [bestChannelAtStation](http://www.seis.sc.edu/sod/ingredients/bestChannelAtStation.html) in [eventChannel](http://www.seis.sc.edu/sod/ingredients/eventChannel.html), but it is unfortunately fragile because stations often have unusual characteristics that keep it from working. We may miss some channels that actually have data. We may not use the subsetter and choose to download all the channels, while we can also use other subsetters within the [eventChannel](http://www.seis.sc.edu/sod/ingredients/eventChannel.html). In the later case, you have to know the channels you want. Please see the discussion about this issue in the [SOD email list](https://groups.google.com/a/seis.sc.edu/forum/#!topic/sod/pWgzAkaggw0).
 
 ### availableData Subsetters
 
@@ -89,6 +89,11 @@ $ SAC
 # see `POLEZERO OPTION`
 $ help transfer
 ```
+
+
+## Tests
+
+Some tests I used to examine SOD subsetters and bugs.
 
 
 ## References
