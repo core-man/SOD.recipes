@@ -21,8 +21,8 @@
         <!-- I use CSVEventSource here, with event parameters in the recipe -->
         <CSVEventSource>
             <events>
-                time, magnitude, latitude, longitude, depth, depthUnits, magnitude, magnitudeType
-                2011-03-11T06:05:00.000Z, 7.1, 59.636, -153.405,  129.0, KILOMETER, 5.7, mww
+                time, latitude, longitude, depth, depthUnits, magnitude, magnitudeType
+                2011-03-11T06:05:00.000Z, 59.636, -153.405,  129.0, KILOMETER, 5.7, mww
             </events>
         </CSVEventSource>
 
